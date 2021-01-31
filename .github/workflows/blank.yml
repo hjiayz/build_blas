@@ -39,26 +39,20 @@ jobs:
           unzip android-ndk-r22-linux-x86_64.zip > /dev/null
       - name: build
         run: |
-          git clone https://github.com/flame/blis.git
           export HOMEDIR=$PWD
-          cd blis
-          git checkout 0.8.0
           export Host=linux-x86_64
           export NDK=$HOMEDIR/android-ndk-r22
           export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/$Host
           export TARGET=aarch64-linux-android
           export CC_TARGET=aarch64-linux-android
           export API=29
-          export AR=$TOOLCHAIN/bin/$TARGET-ar
-          export AS=$TOOLCHAIN/bin/$TARGET-as
-          export CC=$TOOLCHAIN/bin/$CC_TARGET$API-clang
-          export CXX=$TOOLCHAIN/bin/$CC_TARGET$API-clang++
-          export LD=$TOOLCHAIN/bin/$TARGET-ld
-          export RANLIB=$TOOLCHAIN/bin/$TARGET-ranlib
-          export STRIP=$TOOLCHAIN/bin/$TARGET-strip
-          export READELF=$TOOLCHAIN/bin/$TARGET-readelf
-          ./configure --prefix=~/zip/$TARGET --disable-threading auto
-          make -j 8
-          make install 
+          $NDK/build/tools/make_standalone_toolchain.py --arch arm64 --api ${API} --stl=libc++ --install-dir=${HOMEDIR}/toolchain/$TARGET
+          ls ${HOMEDIR}/toolchain/$TARGET/bin
+          export PATH=${HOMEDIR}/toolchain/$TARGET/bin:$PATH
+          git clone https://github.com/xianyi/OpenBLAS.git
+          cd OpenBLAS
+          git checkout v0.3.13
+          make TARGET=ARMV8 BINARY=64 HOSTCC=gcc CC=aarch64-linux-android-gcc FC=aarch64-linux-android-gfortran libs
+          make install --prefix=~/zip/$TARGET
           make clean
           cd ..
