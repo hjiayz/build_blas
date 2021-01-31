@@ -24,19 +24,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Runs a set of commands using the runners shell
-      - name: Cache
-        
-        uses: actions/cache@v2.1.3
-        id: cache-primes
-        with:
-          path: |
-            ~/android-ndk-r22
-            ~/blis
-          key: ${{ runner.os }}-${{ hashFiles('~/lockfiles*') }}
       - name: init
-        if: steps.cache-primes.outputs.cache-hit != 'true'
         run: |
           wget -q https://dl.google.com/android/repository/android-ndk-r22-linux-x86_64.zip
           unzip android-ndk-r22-linux-x86_64.zip > /dev/null
