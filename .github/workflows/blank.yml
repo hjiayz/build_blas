@@ -59,7 +59,7 @@ jobs:
           export RANLIB=$TOOLCHAIN/bin/$TARGET-ranlib
           export STRIP=$TOOLCHAIN/bin/$TARGET-strip
           export READELF=$TOOLCHAIN/bin/$TARGET-readelf
-          ./configure --host=$CC_TARGET --prefix=~/zip/$TARGET
+          ./configure --prefix=~/zip/$TARGET
           make -j 8
           make install 
           cd ..
