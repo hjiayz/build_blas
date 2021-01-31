@@ -39,6 +39,7 @@ jobs:
           unzip android-ndk-r22-linux-x86_64.zip > /dev/null
       - name: build
         run: |
+          sudo apt install gfortran-10-aarch64-linux-gnu
           export HOMEDIR=$PWD
           export Host=linux-x86_64
           export NDK=$HOMEDIR/android-ndk-r22
