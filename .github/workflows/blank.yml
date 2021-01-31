@@ -47,7 +47,7 @@ jobs:
           export RANLIB=$TOOLCHAIN/bin/$TARGET-ranlib
           export STRIP=$TOOLCHAIN/bin/$TARGET-strip
           export READELF=$TOOLCHAIN/bin/$TARGET-readelf
-          ./configure --prefix=~/zip/$TARGET cortexa57
+          ./configure --prefix=~/zip/$TARGET auto
           make -j 8
           make install 
           make clean
