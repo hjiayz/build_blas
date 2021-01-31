@@ -53,6 +53,6 @@ jobs:
           cd OpenBLAS
           git checkout v0.3.13
           make TARGET=ARMV8 BINARY=64 HOSTCC=gcc CC=aarch64-linux-android-gcc FC=aarch64-linux-android-gfortran libs
-          make install --prefix=~/zip/$TARGET
+          make install PREFIX=$HOMEDIR/zip/$TARGET
           make clean
           cd ..
