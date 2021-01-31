@@ -41,7 +41,7 @@ jobs:
         run: |
           gcc --version
           sudo apt install gfortran-9-aarch64-linux-gnu
-          gfortran-9-aarch64-linux-gnu --version
+          aarch64-linux-gnu-gfortran-9 --version
           export HOMEDIR=$PWD
           export Host=linux-x86_64
           export NDK=$HOMEDIR/android-ndk-r22
@@ -54,7 +54,7 @@ jobs:
           git checkout v0.3.13
           make \
               TARGET=CORTEXA57 \
-              FC=aarch64-linux-android-gfortran \
+              FC=aarch64-linux-android-gfortran-9 \
               CC=$TOOLCHAIN/bin/aarch64-linux-android29-clang \
               AR=$TOOLCHAIN/bin/aarch64-linux-android-ar \
               HOSTCC=gcc \
