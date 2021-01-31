@@ -42,7 +42,7 @@ jobs:
           # An explicit key for restoring and saving the cache
           key: ${{ runner.os }}-${{ hashFiles('~/lockfiles') }}
       - name: build
-      - run: |
+        run: |
           cd blis
           git checkout 0.8.0
           export Host=linux-x86_64
