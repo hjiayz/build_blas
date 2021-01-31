@@ -39,7 +39,9 @@ jobs:
           unzip android-ndk-r22-linux-x86_64.zip > /dev/null
       - name: build
         run: |
-          sudo apt install gfortran-10-aarch64-linux-gnu
+          gcc --version
+          sudo apt install gfortran-9-aarch64-linux-gnu
+          gfortran-9-aarch64-linux-gnu --version
           export HOMEDIR=$PWD
           export Host=linux-x86_64
           export NDK=$HOMEDIR/android-ndk-r22
@@ -47,13 +49,16 @@ jobs:
           export TARGET=aarch64-linux-android
           export CC_TARGET=aarch64-linux-android
           export API=29
-          $NDK/build/tools/make_standalone_toolchain.py --arch arm64 --api ${API} --stl=libc++ --install-dir=${HOMEDIR}/toolchain/$TARGET
-          ls ${HOMEDIR}/toolchain/$TARGET/bin
-          export PATH=${HOMEDIR}/toolchain/$TARGET/bin:$PATH
           git clone https://github.com/xianyi/OpenBLAS.git
           cd OpenBLAS
           git checkout v0.3.13
-          make TARGET=ARMV8 BINARY=64 HOSTCC=gcc CC=aarch64-linux-android-gcc FC=aarch64-linux-android-gfortran libs
+          make \
+              TARGET=CORTEXA57 \
+              FC=aarch64-linux-android-gfortran \
+              CC=$TOOLCHAIN/bin/aarch64-linux-android29-clang \
+              AR=$TOOLCHAIN/bin/aarch64-linux-android-ar \
+              HOSTCC=gcc \
+              -j4
           make install PREFIX=$HOMEDIR/zip/$TARGET
           make clean
           cd ..
