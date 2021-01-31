@@ -57,7 +57,7 @@ jobs:
           export RANLIB=$TOOLCHAIN/bin/$TARGET-ranlib
           export STRIP=$TOOLCHAIN/bin/$TARGET-strip
           export READELF=$TOOLCHAIN/bin/$TARGET-readelf
-          ./configure --prefix=~/zip/$TARGET auto
+          ./configure --prefix=~/zip/$TARGET --disable-threading auto
           make -j 8
           make install 
           make clean
