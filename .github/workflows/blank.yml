@@ -24,13 +24,22 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Cache
+        uses: actions/cache@v2.1.3
+        id: cache
+        with: 
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ./android-ndk-r22
+          # An explicit key for restoring and saving the cache
+          key: 1
       - name: init
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           wget -q https://dl.google.com/android/repository/android-ndk-r22-linux-x86_64.zip
           unzip android-ndk-r22-linux-x86_64.zip > /dev/null
-          git clone https://github.com/flame/blis.git
       - name: build
         run: |
+          git clone https://github.com/flame/blis.git
           export HOMEDIR=$PWD
           cd blis
           git checkout 0.8.0
@@ -48,7 +57,7 @@ jobs:
           export RANLIB=$TOOLCHAIN/bin/$TARGET-ranlib
           export STRIP=$TOOLCHAIN/bin/$TARGET-strip
           export READELF=$TOOLCHAIN/bin/$TARGET-readelf
-          ./configure --prefix=~/zip/$TARGET cortexa57
+          ./configure --prefix=~/zip/$TARGET arm64
           make -j 8
           make install 
           make clean
