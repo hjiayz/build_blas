@@ -61,7 +61,7 @@ jobs:
           cd gcc
           git checkout releases/gcc-9.3.0
           cd libgfortran
-          ./configure --host=CC_TARGET --target=CC_TARGET PREFIX=$HOMEDIR/libgfortran/$TARGET
+          ./configure --host=$CC_TARGET --target=$CC_TARGET PREFIX=$HOMEDIR/libgfortran/$TARGET
           make
           make install
           make clean
