@@ -62,7 +62,7 @@ jobs:
           git checkout v0.3.13
           make \
               TARGET=CORTEXA57 \
-              FC=aarch64-linux-gnu-gfortran-9 \
+              FC=aarch64-linux-gnu-gfortran-9 --sysroot=$TOOLCHAIN/sysroot \
               CC=$TOOLCHAIN/bin/aarch64-linux-android29-clang \
               AR=$TOOLCHAIN/bin/aarch64-linux-android-ar \
               HOSTCC=gcc \
