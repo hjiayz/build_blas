@@ -57,12 +57,22 @@ jobs:
           export STRIP=$TOOLCHAIN/bin/$TARGET-strip
           export READELF=$TOOLCHAIN/bin/$TARGET-readelf
           export API=29
+          git clone git://gcc.gnu.org/git/gcc.git
+          cd gcc
+          git checkout releases/gcc-10.1.0
+          cd libgfortran
+          ./configure --host=CC_TARGET --target=CC_TARGET PREFIX=$HOMEDIR/libgfortran/$TARGET
+          make
+          make install
+          make clean
+          cd ..
+          cd ..
           git clone https://github.com/xianyi/OpenBLAS.git
           cd OpenBLAS
           git checkout v0.3.13
           make \
               TARGET=CORTEXA57 \
-              FC="aarch64-linux-gnu-gfortran-9 --sysroot=$TOOLCHAIN/sysroot" \
+              FC="aarch64-linux-gnu-gfortran-9 --sysroot=$TOOLCHAIN/sysroot -L$HOMEDIR/libgfortran/$TARGET" \
               CC=$TOOLCHAIN/bin/aarch64-linux-android29-clang \
               AR=$TOOLCHAIN/bin/aarch64-linux-android-ar \
               HOSTCC=gcc \
