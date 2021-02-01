@@ -43,6 +43,7 @@ jobs:
           sudo apt install gfortran-9-aarch64-linux-gnu
           aarch64-linux-gnu-gfortran-9 --version
           export HOMEDIR=$PWD
+          export API=29
           export Host=linux-x86_64
           export NDK=$HOMEDIR/android-ndk-r22
           export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/$Host
@@ -56,7 +57,6 @@ jobs:
           export RANLIB=$TOOLCHAIN/bin/$TARGET-ranlib
           export STRIP=$TOOLCHAIN/bin/$TARGET-strip
           export READELF=$TOOLCHAIN/bin/$TARGET-readelf
-          export API=29
           git clone https://github.com/gcc-mirror/gcc.git
           cd gcc
           git checkout releases/gcc-9.3.0
