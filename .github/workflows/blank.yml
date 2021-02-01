@@ -64,7 +64,7 @@ jobs:
           cd ..
           mkdir objdir
           cd objdir
-          $PWD/../gcc-4.6.2/configure --host=$CC_TARGET --target=$CC_TARGET --prefix=$HOMEDIR/gcc/$TARGET --enable-languages=c,c++,fortran,go
+          $PWD/../gcc/configure --host=$CC_TARGET --target=$CC_TARGET --prefix=$HOMEDIR/gcc/$TARGET --enable-languages=c,c++,fortran,go
           make
           make install
           make clean
