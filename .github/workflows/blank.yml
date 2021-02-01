@@ -60,8 +60,11 @@ jobs:
           git clone https://github.com/gcc-mirror/gcc.git
           cd gcc
           git checkout releases/gcc-9.3.0
-          cd libgfortran
-          ./configure --host=$CC_TARGET --target=$CC_TARGET PREFIX=$HOMEDIR/libgfortran/$TARGET
+          ./contrib/download_prerequisites
+          cd ..
+          mkdir objdir
+          cd objdir
+          $PWD/../gcc-4.6.2/configure --host=$CC_TARGET --target=$CC_TARGET --prefix=$HOMEDIR/libgfortran/$TARGET --enable-languages=c,c++,fortran,go
           make
           make install
           make clean
