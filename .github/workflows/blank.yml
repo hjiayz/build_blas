@@ -59,7 +59,7 @@ jobs:
           export API=29
           git clone https://github.com/gcc-mirror/gcc.git
           cd gcc
-          git checkout releases/gcc-10.1.0
+          git checkout releases/gcc-9.3.0
           cd libgfortran
           ./configure --host=CC_TARGET --target=CC_TARGET PREFIX=$HOMEDIR/libgfortran/$TARGET
           make
