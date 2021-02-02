@@ -48,12 +48,11 @@ jobs:
           git checkout v0.3.13
           make \
               TARGET=CORTEXA57 \
-              FC="aarch64-linux-gnu-gfortran-9 --sysroot=$TOOLCHAIN/sysroot -L$HOMEDIR/libgfortran/$TARGET" \
+              FC="aarch64-linux-gnu-gfortran-9" \
               HOSTCC=gcc \
               NO_SHARED=1 \
               -j4
           make install PREFIX=$HOMEDIR/zip/$TARGET
-          make clean
           cd ..
       - name: Build zip file
         run: |
