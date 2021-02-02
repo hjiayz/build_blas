@@ -61,8 +61,8 @@ jobs:
           export RANLIB=
           export STRIP=
           export READELF=
-          make install PREFIX=$HOMEDIR/zip/$TARGET
-          make clean
+          make install PREFIX=$HOMEDIR/zip/$TARGET || true
+          make clean || true
           cd ..
       - name: Build zip file
         run: |
