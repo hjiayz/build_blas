@@ -66,8 +66,11 @@ jobs:
           cd ..
       - name: Build zip file
         run: |
+          cd zip
           zip -r openblas.zip *
       - name: Upload Release Asset
         uses: alexellis/upload-assets@0.2.3
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_path: ./openblas.zip
+          asset_paths: ['./openblas.zip']
