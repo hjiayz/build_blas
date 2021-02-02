@@ -52,7 +52,17 @@ jobs:
               HOSTCC=gcc \
               NO_SHARED=1 \
               -j4
+          export CC_TARGET=
+          export AR=
+          export AS=
+          export CC=
+          export CXX=
+          export LD=
+          export RANLIB=
+          export STRIP=
+          export READELF=
           make install PREFIX=$HOMEDIR/zip/$TARGET
+          make clean
           cd ..
       - name: Build zip file
         run: |
